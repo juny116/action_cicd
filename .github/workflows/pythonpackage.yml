@@ -10,7 +10,6 @@ on:
       - created
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -38,3 +37,13 @@ jobs:
       run: |
         pip install pytest
         pytest
+
+  docker_build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
