@@ -1,4 +1,4 @@
-name: Python package
+name: Pulsar API
 
 on:    
   pull_request:
