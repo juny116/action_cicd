@@ -1,4 +1,4 @@
-name: Pulsar API
+name: Pulsar API CICD
 
 on:    
   pull_request:
@@ -9,7 +9,7 @@ on:
     types:
       - created
 jobs:
-  build:
+  TEST:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
