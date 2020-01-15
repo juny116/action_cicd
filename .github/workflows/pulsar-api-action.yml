@@ -9,7 +9,7 @@ on:
     types:
       - created
 jobs:
-  build:
+  TEST:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
