@@ -1,4 +1,4 @@
-name: Pulsar API
+name: Pulsar API CICD
 
 on:    
   pull_request:
