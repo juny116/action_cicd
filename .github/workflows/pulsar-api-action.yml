@@ -47,7 +47,6 @@ jobs:
         docker push docker.pkg.github.com/juny116/action_cicd/test:latest
     - name: Deploy
       run: |
-        apk update && apk add -f openssh-client
         eval $(ssh-agent -s)
         echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
         mkdir -p ~/.ssh
