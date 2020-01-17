@@ -34,9 +34,7 @@ jobs:
         pytest
     - name: Docker Login
       run: |
-        docker login -u $GITHUB_ACTOR --password-stdin docker.pkg.github.com
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
     - name: Build the Docker image
       run: |
         docker build --tag docker.pkg.github.com/juny116/action_cicd/test:$(date +%s) .
