@@ -35,13 +35,12 @@ jobs:
     - name: Docker Login
       run: |
         docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
-    - name: Build the Docker image
+    - name: Build and Release the Docker image
       run: |
         docker build --tag docker.pkg.github.com/juny116/action_cicd/test:$(date +%s) .
         echo "build done"
         docker images
-    - name: Release Docker image
-      run: |
         docker push docker.pkg.github.com/juny116/action_cicd/test:$(date +%s)
+
 
 
