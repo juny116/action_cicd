@@ -48,10 +48,10 @@ jobs:
       run: |
         apk update && apk add -f openssh-client
         eval $(ssh-agent -s)
-        echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
         mkdir -p ~/.ssh
         chmod 700 ~/.ssh
-        ssh-keyscan $DEVELOP_SERVER >> ~/.ssh/known_hosts
+        ssh-keyscan ${{ secrets.DEVEOP_SERVER }} >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
         echo "deploying to develop server..."
-        ssh ${{ secrets.DEVEOP_USER }}@${{ secrets.DEVEOP_USER }} "docker pull docker.pkg.github.com/juny116/action_cicd/test:latest && docker run test Jun > test.txt"
+        ssh ${{ secrets.DEVEOP_USER }}@${{ secrets.DEVEOP_SERVER }} "docker pull docker.pkg.github.com/juny116/action_cicd/test:latest && docker run test Jun > test.txt"
