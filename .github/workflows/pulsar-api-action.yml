@@ -34,15 +34,17 @@ jobs:
         pytest
     - name: Docker Login
       run: |
-        echo $GITHUB_ACTOR
-        docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
+        docker login -u $GITHUB_ACTOR --password-stdin docker.pkg.github.com
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Build the Docker image
       run: |
         docker build --tag docker.pkg.github.com/juny116/action_cicd/test:$(date +%s) .
         echo "build done"
+        docker images
     - name: Release Docker image
       run: |
-        docker tag test docker.pkg.github.com/juny116/action_cicd/test:$(date +%s)
+        docker tag test:$(date +%s) docker.pkg.github.com/juny116/action_cicd/test:$(date +%s)
         docker push docker.pkg.github.com/juny116/action_cicd/IMAGE_NAME:VERSION
 
 
