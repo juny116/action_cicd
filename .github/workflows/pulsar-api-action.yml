@@ -3,7 +3,7 @@ name: Pulsar API CICD
 on:    
   pull_request:
     branches:
-      - develop
+      - master
   page_build:
   release:
     types:
