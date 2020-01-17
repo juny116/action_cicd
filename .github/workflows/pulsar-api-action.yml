@@ -1,4 +1,4 @@
-name: Pulsar API CICD
+name: TEST API CICD
 
 on:    
   pull_request:
@@ -47,11 +47,13 @@ jobs:
         docker push docker.pkg.github.com/juny116/action_cicd/test:latest
     - name: Deploy
       run: |
+        apk update && apk add -f openssh-client
+        eval $(ssh-agent -s)
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
         mkdir -p ~/.ssh
         chmod 700 ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        ssh-keyscan -t rsa ${{ secrets.DEVELOP_SERVER }} >> ~/.ssh/known_hosts
+        ssh-keyscan ${{ secrets.DEVELOP_SERVER }} >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
         echo "deploying to develop server..."
         ssh ${{ secrets.DEVELOP_USER }}@${{ secrets.DEVELOP_SERVER }} "docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com &&
-          docker pull docker.pkg.github.com/juny116/action_cicd/test:latest && docker run test Jun"
+              docker pull docker.pkg.github.com/juny116/action_cicd/test:latest && docker run test Jun"
