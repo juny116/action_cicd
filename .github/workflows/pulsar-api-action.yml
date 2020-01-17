@@ -23,7 +23,7 @@ jobs:
         pip install -r requirements.txt
     - name: Lint with flake8
       run: |
-        echo ${{ secrets.DEVEOP_SERVER }}
+        echo ${{ secrets.DEVELOP_SERVER }}
         pip install flake8
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
@@ -52,7 +52,7 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' | ssh-add - > /dev/null
         mkdir -p ~/.ssh
         chmod 700 ~/.ssh
-        ssh-keyscan ${{ secrets.DEVEOP_SERVER }} >> ~/.ssh/known_hosts
+        ssh-keyscan ${{ secrets.DEVELOP_SERVER }} >> ~/.ssh/known_hosts
         chmod 644 ~/.ssh/known_hosts
         echo "deploying to develop server..."
-        ssh ${{ secrets.DEVEOP_USER }}@${{ secrets.DEVEOP_SERVER }} "docker pull docker.pkg.github.com/juny116/action_cicd/test:latest && docker run test Jun > test.txt"
+        ssh ${{ secrets.DEVELOP_USER }}@${{ secrets.DEVELOP_SERVER }} "docker pull docker.pkg.github.com/juny116/action_cicd/test:latest && docker run test Jun > test.txt"
