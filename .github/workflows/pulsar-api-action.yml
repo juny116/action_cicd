@@ -33,8 +33,6 @@ jobs:
         pip install pytest
         pytest
     - name: Docker Login
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo $GITHUB_ACTOR
         docker login -u $GITHUB_ACTOR -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
