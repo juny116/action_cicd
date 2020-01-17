@@ -42,7 +42,6 @@ jobs:
         docker images
     - name: Release Docker image
       run: |
-        docker tag test:$(date +%s) docker.pkg.github.com/juny116/action_cicd/test:$(date +%s)
-        docker push docker.pkg.github.com/juny116/action_cicd/IMAGE_NAME:VERSION
+        docker push docker.pkg.github.com/juny116/action_cicd/test:$(date +%s)
 
 
